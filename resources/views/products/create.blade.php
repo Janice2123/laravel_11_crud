@@ -1,66 +1,65 @@
 @extends('layouts.app')
 @section('content')
 <div class="row justify-content-center mt-3">
- <div class="col-md-12">
- @session('success')
- <div class="alert alert-success" role="alert">
- {{ $value }}
- </div>
- @endsession
- <div class="card">
- <div class="card-header">Product List</div>
- <div class="card-body">
- <a href="{{ route('products.create') }}" class="btn 
-btn-success btn-sm my-2"><i class="bi bi-plus-circle"></i> Add New 
-Product</a>
- <table class="table table-striped table-bordered">
- <thead>
- <tr>
- <th scope="col">S#</th>
- <th scope="col">Code</th>
- <th scope="col">Name</th>
- <th scope="col">Quantity</th>
- <th scope="col">Price</th>
- <th scope="col">Action</th>
- </tr>
- </thead>
-<tbody>
- @forelse ($products as $product)
-<tr>
- <th scope="row">{{ $loop->iteration 
-}}</th>
- <td>{{ $product->code }}</td>
- <td>{{ $product->name }}</td>
- <td>{{ $product->quantity }}</td>
- <td>{{ $product->price }}</td>
- <td>
- <form action="{{ 
-route('products.destroy', $product->id) }}" method="post">
- @csrf
-@method('DELETE')
- <a href="{{ route('products.show', 
-$product->id) }}" class="btn btn-warning btn-sm"><i class="bi bieye"></i> Show</a>
- <a href="{{ route('products.edit', 
-$product->id) }}" class="btn btn-primary btn-sm"><i class="bi bipencil-square"></i> Edit</a> 
- <button type="submit" class="btn 
-btn-danger btn-sm" onclick="return confirm('Do you want to delete this 
-product?');"><i class="bi bi-trash"></i> Delete</button>
- </form>
- </td>
- </tr>
-@empty
- <td colspan="6">
- <span class="text-danger">
- <strong>No Product Found!</strong>
- </span>
- </td>
- @endforelse
- </tbody>
- </table>
- {{ $products->links() }}
- </div>
- </div>
- </div> 
+    <div class="col-md-12">
+        @session('success')
+            <div class="alert alert-success" role="alert">
+                {{ $value }}
+            </div>
+        @endsession
+
+        <div class="card">
+            <div class="card-header">Add New Product</div>
+            <div class="card-body">
+                <form action="{{ route('products.store') }}" method="post">
+                    @csrf
+                    <div class="mb-3">
+                        <label for="code" class="form-label">Code</label>
+                        <input type="text" class="form-control @error('code') is-invalid @enderror" id="code" name="code" value="{{ old('code') }}" required>
+                        @error('code')
+                            <div class="invalid-feedback">{{ $message }}</div>
+                        @enderror
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="name" class="form-label">Name</label>
+                        <input type="text" class="form-control @error('name') is-invalid @enderror" id="name" name="name" value="{{ old('name') }}" required>
+                        @error('name')
+                            <div class="invalid-feedback">{{ $message }}</div>
+                        @enderror
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="quantity" class="form-label">Quantity</label>
+                        <input type="number" class="form-control @error('quantity') is-invalid @enderror" id="quantity" name="quantity" value="{{ old('quantity') }}" required>
+                        @error('quantity')
+                            <div class="invalid-feedback">{{ $message }}</div>
+                        @enderror
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="price" class="form-label">Price</label>
+                        <input type="number" step="0.01" class="form-control @error('price') is-invalid @enderror" id="price" name="price" value="{{ old('price') }}" required>
+                        @error('price')
+                            <div class="invalid-feedback">{{ $message }}</div>
+                        @enderror
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="description" class="form-label">Description</label>
+                        <textarea class="form-control @error('description') is-invalid @enderror" id="description" name="description" rows="3">{{ old('description') }}</textarea>
+                        @error('description')
+                            <div class="invalid-feedback">{{ $message }}</div>
+                        @enderror
+                    </div>
+
+                    <div class="mb-3">
+                        <button type="submit" class="btn btn-primary">Save Product</button>
+                        <a href="{{ route('products.index') }}" class="btn btn-secondary">Cancel</a>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
 </div>
- 
 @endsection
