@@ -20,4 +20,5 @@ Route::post('/register', [RegisterController::class, 'register']);
 // Protected Routes
 Route::middleware(['auth'])->group(function () {
 Route::resource('products', ProductController::class);
+
 });

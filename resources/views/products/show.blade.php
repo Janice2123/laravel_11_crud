@@ -48,7 +48,16 @@ btn-primary btn-sm">&larr; Back</a>
  {{ $product->description }}
  </div>
  </div>
- 
+ <div class="row">
+    <label class="col-md-4 col-form-label text-md-end text-start"><strong>Image:</strong></label>
+    <div class="col-md-6" style="line-height:35px;">
+        @if($product->image)
+            <img src="{{ asset('storage/' . $product->image) }}" alt="Product Image" width="150">
+        @else
+            <span>No image uploaded.</span>
+        @endif
+    </div>
+</div>
  </div>
  </div>
  </div> 
