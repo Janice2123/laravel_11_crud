@@ -1,19 +1,23 @@
 @extends('layouts.app')
-@section('content')
-<div class="row justify-content-center mt-3">
-    <div class="col-md-12">
-        @session('success')
-            <div class="alert alert-success" role="alert">
-                {{ $value }}
-            </div>
-        @endsession
 
-        <div class="card">
-            <div class="card-header">Add New Product</div>
+@section('content')
+<div class="container d-flex justify-content-center align-items-center" style="min-height: 90vh;">
+    <div class="col-md-10">
+        @if(session('success'))
+            <div class="alert alert-success alert-dismissible fade show" role="alert">
+                {{ session('success') }}
+                <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+            </div>
+        @endif
+
+        <div class="card shadow-sm border-0">
+            <div class="card-header text-white" style="background-color: #6366f1;">
+                <h5 class="mb-0">Add New Product</h5>
+            </div>
             <div class="card-body">
                 <form action="{{ route('products.store') }}" method="post" enctype="multipart/form-data">
-                    
                     @csrf
+
                     <div class="mb-3">
                         <label for="code" class="form-label">Code</label>
                         <input type="text" class="form-control @error('code') is-invalid @enderror" id="code" name="code" value="{{ old('code') }}" required>
@@ -53,16 +57,18 @@
                             <div class="invalid-feedback">{{ $message }}</div>
                         @enderror
                     </div>
-                     <div class="mb-3">
+
+                    <div class="mb-3">
                         <label for="image" class="form-label">Product Image</label>
                         <input type="file" class="form-control @error('image') is-invalid @enderror" id="image" name="image">
                         @error('image')
                             <div class="invalid-feedback">{{ $message }}</div>
                         @enderror
                     </div>
-                    <div class="mb-3">
-                        <button type="submit" class="btn btn-primary">Save Product</button>
-                        <a href="{{ route('products.index') }}" class="btn btn-secondary">Cancel</a>
+
+                    <div class="d-flex justify-content-between">
+                        <a href="{{ route('products.index') }}" class="btn btn-outline-secondary">Cancel</a>
+                        <button type="submit" class="btn text-white" style="background-color: #6366f1;">Save Product</button>
                     </div>
                 </form>
             </div>

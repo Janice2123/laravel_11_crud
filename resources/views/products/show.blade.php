@@ -1,66 +1,52 @@
 @extends('layouts.app')
+
 @section('content')
-<div class="row justify-content-center mt-3">
- <div class="col-md-8">
- <div class="card">
- <div class="card-header">
- <div class="float-start">
- Product Information
- </div>
- <div class="float-end">
- <a href="{{ route('products.index') }}" class="btn 
-btn-primary btn-sm">&larr; Back</a>
- </div>
- </div>
- <div class="card-body">
- <div class="row">
- <label for="code" class="col-md-4 col-formlabel text-md-end text-start"><strong>Code:</strong></label>
- <div class="col-md-6" style="line-height:
-35px;">
- {{ $product->code }}
- </div>
- </div>
- <div class="row">
- <label for="name" class="col-md-4 col-formlabel text-md-end text-start"><strong>Name:</strong></label>
- <div class="col-md-6" style="line-height:
-35px;">
- {{ $product->name }}
- </div>
- </div>
- <div class="row">
- <label for="quantity" class="col-md-4 colform-label text-md-end text-start"><strong>Quantity:</strong></label>
- <div class="col-md-6" style="line-height:
-35px;">
- {{ $product->quantity }}
- </div>
- </div>
- <div class="row">
- <label for="price" class="col-md-4 col-formlabel text-md-end text-start"><strong>Price:</strong></label>
- <div class="col-md-6" style="line-height:
-35px;">
- {{ $product->price }}
- </div>
- </div>
- <div class="row">
- <label for="description" class="col-md-4 colform-label text-md-end textstart"><strong>Description:</strong></label>
- <div class="col-md-6" style="line-height:
-35px;">
- {{ $product->description }}
- </div>
- </div>
- <div class="row">
-    <label class="col-md-4 col-form-label text-md-end text-start"><strong>Image:</strong></label>
-    <div class="col-md-6" style="line-height:35px;">
-        @if($product->image)
-            <img src="{{ asset('storage/' . $product->image) }}" alt="Product Image" width="150">
-        @else
-            <span>No image uploaded.</span>
-        @endif
+<div class="container mt-4">
+    <div class="col-md-10 mx-auto">
+        <div class="card shadow-sm border-0">
+            <div class="card-header d-flex justify-content-between align-items-center text-white" style="background-color: #6366f1;">
+                <h5 class="mb-0">Product Information</h5>
+                <a href="{{ route('products.index') }}" class="btn btn-light btn-sm">
+                    &larr; Back
+                </a>
+            </div>
+            <div class="card-body">
+                <div class="row">
+                    {{-- Left: Product Details --}}
+                    <div class="col-md-8">
+                        <div class="mb-3 row">
+                            <label class="col-md-4 col-form-label fw-bold text-md-end">Code:</label>
+                            <div class="col-md-8 pt-2">{{ $product->code }}</div>
+                        </div>
+                        <div class="mb-3 row">
+                            <label class="col-md-4 col-form-label fw-bold text-md-end">Name:</label>
+                            <div class="col-md-8 pt-2">{{ $product->name }}</div>
+                        </div>
+                        <div class="mb-3 row">
+                            <label class="col-md-4 col-form-label fw-bold text-md-end">Quantity:</label>
+                            <div class="col-md-8 pt-2">{{ $product->quantity }}</div>
+                        </div>
+                        <div class="mb-3 row">
+                            <label class="col-md-4 col-form-label fw-bold text-md-end">Price:</label>
+                            <div class="col-md-8 pt-2">₱{{ number_format($product->price, 2) }}</div>
+                        </div>
+                        <div class="mb-3 row">
+                            <label class="col-md-4 col-form-label fw-bold text-md-end">Description:</label>
+                            <div class="col-md-8 pt-2">{{ $product->description }}</div>
+                        </div>
+                    </div>
+
+                    {{-- Right: Product Image --}}
+                    <div class="col-md-4 text-center">
+                        @if ($product->image)
+                            <img src="{{ asset('storage/' . $product->image) }}" alt="{{ $product->name }}" class="img-fluid rounded shadow-sm" style="max-height: 400px;">
+                        @else
+                            <img src="{{ asset('images/no-image.png') }}" alt="No Image" class="img-fluid rounded shadow-sm" style="max-height: 400px;">
+                        @endif
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
 </div>
- </div>
- </div>
- </div> 
-</div>
- 
 @endsection
